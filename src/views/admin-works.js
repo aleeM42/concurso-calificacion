@@ -2,7 +2,7 @@
 
 import { requireAuth } from '../auth-guard.js';
 import { renderNavbar, showToast, categoryBadge, showConfirmModal } from './shared.js';
-import { loadWorks, addWork, importCSV, removeWork, generateTestScores } from '../controllers/admin.controller.js';
+import { loadWorks, addWork, importCSV, removeWork } from '../controllers/admin.controller.js';
 
 let currentUser;
 
@@ -61,35 +61,6 @@ document.getElementById('csvFile').addEventListener('change', async (e) => {
 
   // Reset file input
   e.target.value = '';
-});
-
-// --- Generar Calificaciones de Prueba ---
-document.getElementById('btnGenerateTestScores')?.addEventListener('click', async (e) => {
-  const btn = e.target;
-  const originalText = btn.textContent;
-
-  showConfirmModal(
-    'Generar Calificaciones',
-    '¿Estás seguro de generar calificaciones automáticas para todas las obras por parte de todos los jueces? (Se forzarán empates reales).',
-    async () => {
-      try {
-        btn.disabled = true;
-        btn.textContent = 'Generando...';
-
-        const count = await generateTestScores();
-        if (count > 0) {
-          showToast(`Se han generado ${count} calificaciones de prueba correctamente`, 'success');
-        } else {
-          showToast('Todos los jueces ya han calificado todas las obras', 'info');
-        }
-      } catch (error) {
-        showToast(error.message, 'error');
-      } finally {
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }
-    }
-  );
 });
 
 // --- Renderizar tabla de obras ---
