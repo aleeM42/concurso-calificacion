@@ -1,0 +1,73 @@
+/* ============================================
+   LOGIN PAGE CSS
+   ============================================ */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-light) 100%);
+    padding: var(--space-md);
+}
+
+.login-card {
+    background: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    width: 100%;
+    max-width: 420px;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.login-card .brand-logo {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: var(--space-md);
+    border-radius: var(--radius-sm);
+}
+
+.login-card .brand-logo.fallback-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.login-card .brand-title {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+    line-height: 1.2;
+}
+
+.login-card .login-subtitle {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-xl);
+    font-weight: 500;
+}
+
+.login-card .form-group {
+    text-align: left;
+}
+
+.login-error {
+    background: var(--color-accent-red-light);
+    color: var(--color-accent-red);
+    border: 1px solid rgba(192, 57, 43, 0.2);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+    display: none;
+}
+
+.login-error.show {
+    display: block;
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: var(--space-xl);
+    }
+}

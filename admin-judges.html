@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gestión de jueces — Sistema de Puntaje de Concursos">
+    <title>Concurso — Jueces</title>
+    <link rel="stylesheet" href="/src/views/css/global.css">
+    <link rel="stylesheet" href="/src/views/css/components.css">
+    <link rel="stylesheet" href="/src/views/css/admin.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar" id="navbar"></nav>
+
+        <main class="page-content">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Gestión de Jueces</h1>
+                    <p>Crear cuentas de jueces y ver el listado actual</p>
+                </div>
+
+                <!-- Formulario crear juez -->
+                <div class="card" style="margin-bottom: var(--space-xl);">
+                    <div class="card-header">
+                        <h3>Crear Nuevo Juez</h3>
+                    </div>
+                    <form id="addJudgeForm">
+                        <div class="add-form">
+                            <div class="form-group">
+                                <label for="judgeName">Nombre completo</label>
+                                <input type="text" id="judgeName" class="form-control" placeholder="Juan Pérez"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="judgeId">ID de Acceso del Juez</label>
+                                <input type="text" id="judgeId" class="form-control" placeholder="Ej: juez1" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="judgePassword">Contraseña</label>
+                                <input type="text" id="judgePassword" class="form-control"
+                                    placeholder="Mínimo 6 caracteres" required minlength="6">
+                                <p
+                                    style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 4px;">
+                                    💡 Anota estas credenciales para entregárselas al juez
+                                </p>
+                            </div>
+                            <div class="form-group full-width">
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary" id="btnAddJudge">Crear Juez</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Listado de jueces -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Jueces Registrados</h3>
+                    </div>
+                    <div id="judgesTable">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="/src/views/admin-judges.js"></script>
+</body>
+
+</html>

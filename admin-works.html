@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gestión de obras — Sistema de Puntaje de Concursos">
+    <title>Concurso — Obras</title>
+    <link rel="stylesheet" href="/src/views/css/global.css">
+    <link rel="stylesheet" href="/src/views/css/components.css">
+    <link rel="stylesheet" href="/src/views/css/admin.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar" id="navbar"></nav>
+
+        <main class="page-content">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Gestión de Obras</h1>
+                    <p>Agregar obras individualmente o importar desde CSV</p>
+                    <button id="btnGenerateTestScores" class="btn btn-secondary" style="margin-top: 10px;">🧪 Generar
+                        Calificaciones de Prueba para Todas las Obras</button>
+                </div>
+
+                <!-- Formulario agregar obra -->
+                <div class="card" style="margin-bottom: var(--space-xl);">
+                    <div class="card-header">
+                        <h3>Agregar Obra</h3>
+                    </div>
+                    <form id="addWorkForm">
+                        <div class="add-form">
+                            <div class="form-group">
+                                <label for="workTitle">Título</label>
+                                <input type="text" id="workTitle" class="form-control" placeholder="Nombre de la obra"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="workAuthor">Autor</label>
+                                <input type="text" id="workAuthor" class="form-control" placeholder="Nombre del autor"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="workCategory">Categoría</label>
+                                <select id="workCategory" class="form-control" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="infantil">Infantil</option>
+                                    <option value="juvenil">Juvenil</option>
+                                    <option value="adulto">Adulto</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="workDescription">Descripción (opcional)</label>
+                                <input type="text" id="workDescription" class="form-control"
+                                    placeholder="Breve descripción">
+                            </div>
+                            <div class="form-group full-width">
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary" id="btnAddWork">Agregar Obra</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Importar CSV -->
+                <div class="card" style="margin-bottom: var(--space-xl);">
+                    <div class="card-header">
+                        <h3>Importar desde CSV</h3>
+                    </div>
+                    <p
+                        style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--space-md);">
+                        Formato: <strong>título, autor, categoría, descripción</strong> (una obra por línea).
+                        Categorías válidas: infantil, juvenil, adulto.
+                    </p>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="csvFile" accept=".csv">
+                        <div class="file-input-label">
+                            📄 Haz clic o arrastra un archivo CSV aquí
+                        </div>
+                    </div>
+                    <div id="csvStatus" style="margin-top: var(--space-sm); font-size: var(--font-size-sm);"></div>
+                </div>
+
+                <!-- Listado de obras -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Obras Registradas</h3>
+                    </div>
+                    <div id="worksTable">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="/src/views/admin-works.js"></script>
+</body>
+
+</html>

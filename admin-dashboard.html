@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Panel del administrador — Sistema de Puntaje de Concursos">
+    <title>Concurso — Dashboard Admin</title>
+    <link rel="stylesheet" href="/src/views/css/global.css">
+    <link rel="stylesheet" href="/src/views/css/components.css">
+    <link rel="stylesheet" href="/src/views/css/admin.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar" id="navbar"></nav>
+
+        <main class="page-content">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Resumen general del concurso</p>
+                </div>
+
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalWorks">-</div>
+                        <div class="stat-label">Obras registradas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalJudges">-</div>
+                        <div class="stat-label">Jueces activos</div>
+                    </div>
+                </div>
+
+                <h2 style="margin-bottom: var(--space-md);">Acceso rápido</h2>
+                <div class="quick-links">
+                    <a href="/admin-works.html" class="quick-link">
+                        <span class="link-icon">📋</span>
+                        <div class="link-text">
+                            <h3>Gestionar Obras</h3>
+                            <p>Agregar, ver y administrar obras</p>
+                        </div>
+                    </a>
+                    <a href="/admin-judges.html" class="quick-link">
+                        <span class="link-icon">⚖️</span>
+                        <div class="link-text">
+                            <h3>Gestionar Jueces</h3>
+                            <p>Crear cuentas y ver jueces</p>
+                        </div>
+                    </a>
+                    <a href="/admin-results.html" class="quick-link">
+                        <span class="link-icon">🏆</span>
+                        <div class="link-text">
+                            <h3>Ver Resultados</h3>
+                            <p>Ranking y top 5 ganadores</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="/src/views/admin-dashboard.js"></script>
+</body>
+
+</html>

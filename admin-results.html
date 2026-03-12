@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Resultados del concurso — Sistema de Puntaje">
+    <title>Concurso — Resultados</title>
+    <link rel="stylesheet" href="/src/views/css/global.css">
+    <link rel="stylesheet" href="/src/views/css/components.css">
+    <link rel="stylesheet" href="/src/views/css/admin.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar" id="navbar"></nav>
+
+        <main class="page-content">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Resultados del Concurso</h1>
+                    <p>Ranking general con sumatoria de puntajes — Top 5 ganadores destacados</p>
+                </div>
+
+                <!-- Filtro por categoría -->
+                <div class="results-filter" id="categoryFilter">
+                    <button class="btn btn-secondary btn-sm active" data-category="all">Todas</button>
+                    <button class="btn btn-secondary btn-sm" data-category="infantil">Infantil</button>
+                    <button class="btn btn-secondary btn-sm" data-category="juvenil">Juvenil</button>
+                    <button class="btn btn-secondary btn-sm" data-category="adulto">Adulto</button>
+                </div>
+
+                <!-- Tabla de resultados -->
+                <div class="card">
+                    <div id="resultsTable">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="/src/views/admin-results.js"></script>
+</body>
+
+</html>

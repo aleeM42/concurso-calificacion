@@ -1,0 +1,189 @@
+/* ============================================
+   JUDGE PAGES CSS — Mobile-first
+   ============================================ */
+
+/* --- Scoring Cards --- */
+.scoring-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--color-bg-card);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
+}
+
+.scoring-progress .progress-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.scoring-progress .progress-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--color-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.scoring-progress .progress-fill {
+    height: 100%;
+    background: var(--color-success);
+    border-radius: 4px;
+    transition: width var(--transition-normal);
+}
+
+.scoring-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.scoring-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.scoring-card .work-info {
+    margin-bottom: var(--space-md);
+}
+
+.scoring-card .work-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+}
+
+.scoring-card .work-author {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xs);
+}
+
+.scoring-card .work-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-sm);
+}
+
+/* --- Score Input --- */
+.score-input-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.score-input-group label {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+}
+
+.score-input {
+    width: 80px;
+    height: 52px;
+    text-align: center;
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-primary);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color var(--transition-fast);
+}
+
+.score-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(27, 58, 92, 0.15);
+}
+
+.score-range {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* --- Comment input en scoring --- */
+.scoring-card textarea {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    resize: vertical;
+    min-height: 60px;
+    margin-bottom: var(--space-md);
+    transition: border-color var(--transition-fast);
+}
+
+.scoring-card textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+/* --- My Scores list --- */
+.my-scores-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.my-score-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+}
+
+.my-score-item .score-work-info {
+    flex: 1;
+}
+
+.my-score-item .score-work-info h4 {
+    font-size: var(--font-size-base);
+    margin-bottom: 2px;
+}
+
+.my-score-item .score-work-info p {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+.my-score-item .score-value {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-primary);
+    min-width: 50px;
+    text-align: center;
+}
+
+/* --- Complete state --- */
+.completed-state {
+    text-align: center;
+    padding: var(--space-2xl);
+}
+
+.completed-state .check-icon {
+    font-size: 4rem;
+    margin-bottom: var(--space-md);
+}
+
+.completed-state h2 {
+    color: var(--color-success);
+    margin-bottom: var(--space-sm);
+}
+
+.completed-state p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
