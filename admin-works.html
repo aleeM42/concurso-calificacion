@@ -66,24 +66,24 @@
                     </form>
                 </div>
 
-                <!-- Importar CSV -->
+                <!-- Importar CSV / Excel -->
                 <div class="card" style="margin-bottom: var(--space-xl);">
                     <div class="card-header">
-                        <h3>Importar desde CSV</h3>
+                        <h3>Importar desde Excel / CSV</h3>
                     </div>
                     <p
                         style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--space-md);">
-                        Formato: <strong>título, autor, categoría, descripción</strong> (una obra por línea).
-                        Categorías válidas: infantil, juvenil, adulto.
+                        Formato: <strong>#, título, autor, descripción</strong> (una obra por fila).
+                        El símbolo "#" define la categoría usando la primera letra (I=Infantil, J=Juvenil, A=Adulto).
                     </p>
                     <div class="form-group" style="margin-bottom: var(--space-md);">
                         <label for="csvContest">Nombre del Concurso</label>
                         <input type="text" id="csvContest" class="form-control" placeholder="Concurso asignar a estas obras" required>
                     </div>
                     <div class="file-input-wrapper">
-                        <input type="file" id="csvFile" accept=".csv">
+                        <input type="file" id="csvFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                         <div class="file-input-label">
-                            📄 Haz clic o arrastra un archivo CSV aquí
+                            📄 Haz clic o arrastra un archivo Excel / CSV aquí
                         </div>
                     </div>
                     <div id="csvStatus" style="margin-top: var(--space-sm); font-size: var(--font-size-sm);"></div>
@@ -102,6 +102,8 @@
         </main>
     </div>
 
+    <!-- SheetJS for Excel/CSV parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script type="module" src="/src/views/admin-works.js"></script>
 </body>
 

@@ -40,24 +40,13 @@ export async function addWork(data) {
 }
 
 /**
- * Importar obras desde un archivo CSV.
- * Formato esperado: titulo,autor,categoria,descripcion
- * La primera fila puede ser encabezados (se detecta automáticamente).
+ * Importar obras desde un array de datos (procesado de CSV o Excel).
  */
-export async function importCSV(file, contestName) {
-    const text = await file.text();
-    const lines = text.split(/\r?\n/).filter(line => line.trim() !== '');
-
-    if (lines.length === 0) {
-        throw new Error('El archivo CSV está vacío');
+export async function importWorksBatch(dataWorks, contestName) {
+    if (!dataWorks || dataWorks.length === 0) {
+        throw new Error('El archivo está vacío o no contiene datos válidos');
     }
 
-    // Detectar si la primera fila es encabezados
-    const firstLine = lines[0].toLowerCase();
-    const hasHeaders = firstLine.includes('titulo') || firstLine.includes('title') ||
-        firstLine.includes('autor') || firstLine.includes('author');
-
-    const dataLines = hasHeaders ? lines.slice(1) : lines;
     const validCategories = ['infantil', 'juvenil', 'adulto'];
 
     const existingWorks = await getWorks();
@@ -66,41 +55,33 @@ export async function importCSV(file, contestName) {
 
     const works = [];
 
-    dataLines.forEach((line, index) => {
-        const parts = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(s => {
-            let val = s.trim();
-            if (val.startsWith('"') && val.endsWith('"')) {
-                val = val.substring(1, val.length - 1).trim();
-            }
-            return val;
-        });
-
-        if (parts.length < 3) {
-            throw new Error(`Línea ${index + 1}: se necesitan al menos 3 columnas (título, autor, categoría)`);
+    dataWorks.forEach((item, index) => {
+        if (!item.title || !item.author || !item.category) {
+            throw new Error(`Obra ${index + 1}: faltan datos requeridos (título, autor o categoría)`);
         }
 
-        const category = parts[2].toLowerCase();
+        const category = item.category.toLowerCase();
         if (!validCategories.includes(category)) {
-            throw new Error(`Línea ${index + 1}: categoría "${parts[2]}" no válida. Usar: infantil, juvenil o adulto`);
+            throw new Error(`Obra "${item.title}": categoría "${item.category}" no válida. Usar: infantil, juvenil o adulto`);
         }
 
-        const key = `${parts[0].toLowerCase()}|${parts[1].toLowerCase()}`;
+        const key = `${item.title.toLowerCase()}|${item.author.toLowerCase()}`;
         if (existingKeys.has(key) || newKeys.has(key)) {
-            throw new Error(`Línea ${index + 1}: La obra "${parts[0]}" del autor "${parts[1]}" ya está registrada o existe un duplicado en el mismo archivo.`);
+            throw new Error(`La obra "${item.title}" del autor "${item.author}" ya está registrada o existe un duplicado en el mismo archivo.`);
         }
         newKeys.add(key);
 
         works.push({
-            title: parts[0],
-            author: parts[1],
+            title: item.title,
+            author: item.author,
             category: category,
-            description: parts[3] || '',
+            description: item.description || '',
             contest: contestName,
         });
     });
 
     if (works.length === 0) {
-        throw new Error('No se encontraron obras válidas en el CSV');
+        throw new Error('No se encontraron obras válidas en el archivo');
     }
 
     const count = await createWorksBatch(works);

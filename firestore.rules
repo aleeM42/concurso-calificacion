@@ -62,5 +62,9 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+    // 4. Colección de concursos históricos (contests)
+    match /contests/{contestId} {
+      allow read, write: if isAdmin();
+    }
   }
 }
