@@ -22,6 +22,21 @@
                     <p>Asigna un puntaje del 0 al 10 a cada obra</p>
                 </div>
 
+                <!-- Filtros -->
+                <div class="filters-section card" style="margin-bottom: var(--space-xl); padding: var(--space-md); display: flex; gap: var(--space-md); align-items: center; flex-wrap: wrap;">
+                    <div class="form-group" style="margin-bottom: 0; flex: 1; min-width: 200px;">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Buscar por autor o título...">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0; min-width: 150px;">
+                        <select id="categoryFilter" class="form-control">
+                            <option value="">Todas las categorías</option>
+                            <option value="infantil">Infantil</option>
+                            <option value="juvenil">Juvenil</option>
+                            <option value="adulto">Adulto</option>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Progreso -->
                 <div class="scoring-progress" id="progressBar" style="display: none;">
                     <span class="progress-text" id="progressText">0 / 0</span>

@@ -40,6 +40,7 @@ export function renderNavbar(role, userName, activePage) {
     { href: '/admin-works.html', label: 'Obras', id: 'works' },
     { href: '/admin-judges.html', label: 'Jueces', id: 'judges' },
     { href: '/admin-results.html', label: 'Resultados', id: 'results' },
+    { href: '/admin-contests.html', label: 'Historial', id: 'contests' },
   ];
 
   const judgeLinks = [

@@ -3,6 +3,8 @@
 import { getWorks, createWork, createWorksBatch, deleteWork } from '../models/work.model.js';
 import { getUsersByRole, deleteUserDoc, updateUserDoc } from '../models/user.model.js';
 import { getAllScores, getScoresByWork, createScore, hasJudgeScored } from '../models/score.model.js';
+import { db } from '../firebase-config.js';
+import { addDoc, collection, serverTimestamp, writeBatch, doc, getDocs, query, orderBy } from 'firebase/firestore';
 
 /**
  * Cargar datos del dashboard: contadores básicos.
@@ -26,7 +28,8 @@ export async function addWork(data) {
     const existingWorks = await getWorks();
     const isDuplicate = existingWorks.some(w =>
         w.title.toLowerCase() === data.title.toLowerCase() &&
-        w.author.toLowerCase() === data.author.toLowerCase()
+        w.author.toLowerCase() === data.author.toLowerCase() &&
+        (w.contest?.toLowerCase() || '') === (data.contest?.toLowerCase() || '')
     );
 
     if (isDuplicate) {
@@ -41,7 +44,7 @@ export async function addWork(data) {
  * Formato esperado: titulo,autor,categoria,descripcion
  * La primera fila puede ser encabezados (se detecta automáticamente).
  */
-export async function importCSV(file) {
+export async function importCSV(file, contestName) {
     const text = await file.text();
     const lines = text.split(/\r?\n/).filter(line => line.trim() !== '');
 
@@ -58,7 +61,7 @@ export async function importCSV(file) {
     const validCategories = ['infantil', 'juvenil', 'adulto'];
 
     const existingWorks = await getWorks();
-    const existingKeys = new Set(existingWorks.map(w => `${w.title.toLowerCase()}|${w.author.toLowerCase()}`));
+    const existingKeys = new Set(existingWorks.filter(w => (w.contest?.toLowerCase() || '') === contestName.toLowerCase()).map(w => `${w.title.toLowerCase()}|${w.author.toLowerCase()}`));
     const newKeys = new Set();
 
     const works = [];
@@ -92,6 +95,7 @@ export async function importCSV(file) {
             author: parts[1],
             category: category,
             description: parts[3] || '',
+            contest: contestName,
         });
     });
 
@@ -191,6 +195,7 @@ export async function calculateResults() {
             title: work.title,
             author: work.author,
             category: work.category,
+            contest: work.contest,
             totalScore,
             scoreCount: workScores.length,
             scores: workScores,
@@ -249,4 +254,92 @@ export async function generateTestScores() {
         }
     }
     return count;
+}
+
+/**
+ * Finalizar el concurso actual.
+ * Guarda el top 5 de cada categoría en el historial y elimina todas las obras y calificaciones actuales.
+ * @param {string} contestName - Nombre del concurso para el historial.
+ */
+export async function finalizeContest(contestName) {
+    // 1. Calcular resultados actuales
+    const allResults = await calculateResults();
+    if (allResults.length === 0) {
+        throw new Error('No hay obras para finalizar.');
+    }
+
+    // 2. Extraer Top 5 por categoría
+    const categories = ['infantil', 'juvenil', 'adulto'];
+    const winners = {};
+
+    categories.forEach(cat => {
+        const catResults = allResults.filter(r => r.category === cat);
+        winners[cat] = catResults.slice(0, 5).map(r => ({
+            title: r.title,
+            author: r.author,
+            totalScore: r.totalScore
+        }));
+    });
+
+    // 3. Guardar en nueva colección "contests"
+    const contestsCol = collection(db, 'contests');
+    await addDoc(contestsCol, {
+        name: contestName,
+        date: serverTimestamp(),
+        winners: winners
+    });
+
+    // 4. Borrar todas las obras y calificaciones actuales
+    const worksCol = collection(db, 'works');
+    const worksSnap = await getDocs(worksCol);
+    
+    const scoresCol = collection(db, 'scores');
+    const scoresSnap = await getDocs(scoresCol);
+
+    let batch = writeBatch(db);
+    let opsCount = 0;
+    const batches = [batch];
+
+    const addDeleteToBatch = (ref) => {
+        if (opsCount >= 490) { // Límite seguro < 500
+            batch = writeBatch(db);
+            batches.push(batch);
+            opsCount = 0;
+        }
+        batch.delete(ref);
+        opsCount++;
+    };
+
+    worksSnap.forEach(d => addDeleteToBatch(d.ref));
+    scoresSnap.forEach(d => addDeleteToBatch(d.ref));
+
+    for (const b of batches) {
+        if (opsCount > 0 || batches.length > 1) { // No commit si el batch está vacío
+             await b.commit();
+        }
+    }
+}
+
+/**
+ * Obtener el historial de concursos finalizados.
+ */
+export async function getContestsHistory() {
+    const contestsCol = collection(db, 'contests');
+    const q = query(contestsCol, orderBy('date', 'desc'));
+    const snap = await getDocs(q);
+    
+    return snap.docs.map(d => {
+        const data = d.data();
+        let formattedDate = 'Fecha desconocida';
+        if (data.date) {
+             const dateObj = data.date.toDate ? data.date.toDate() : new Date(data.date.seconds * 1000);
+             formattedDate = dateObj.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+        return {
+             id: d.id,
+             name: data.name || 'Concurso sin nombre',
+             date: formattedDate,
+             winners: data.winners || {}
+        };
+    });
 }

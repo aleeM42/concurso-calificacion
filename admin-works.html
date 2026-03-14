@@ -49,6 +49,10 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="workContest">Concurso</label>
+                                <input type="text" id="workContest" class="form-control" placeholder="Nombre del concurso" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="workDescription">Descripción (opcional)</label>
                                 <input type="text" id="workDescription" class="form-control"
                                     placeholder="Breve descripción">
@@ -72,6 +76,10 @@
                         Formato: <strong>título, autor, categoría, descripción</strong> (una obra por línea).
                         Categorías válidas: infantil, juvenil, adulto.
                     </p>
+                    <div class="form-group" style="margin-bottom: var(--space-md);">
+                        <label for="csvContest">Nombre del Concurso</label>
+                        <input type="text" id="csvContest" class="form-control" placeholder="Concurso asignar a estas obras" required>
+                    </div>
                     <div class="file-input-wrapper">
                         <input type="file" id="csvFile" accept=".csv">
                         <div class="file-input-label">

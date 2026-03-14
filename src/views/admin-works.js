@@ -25,6 +25,7 @@ document.getElementById('addWorkForm').addEventListener('submit', async (e) => {
       author: document.getElementById('workAuthor').value.trim(),
       category: document.getElementById('workCategory').value,
       description: document.getElementById('workDescription').value.trim(),
+      contest: document.getElementById('workContest').value.trim(),
     });
 
     showToast('Obra agregada correctamente');
@@ -43,12 +44,19 @@ document.getElementById('csvFile').addEventListener('change', async (e) => {
   const file = e.target.files[0];
   if (!file) return;
 
+  const contestName = document.getElementById('csvContest').value.trim();
+  if (!contestName) {
+    showToast('Por favor, ingresa el nombre del concurso', 'error');
+    e.target.value = '';
+    return;
+  }
+
   const statusEl = document.getElementById('csvStatus');
   statusEl.textContent = 'Importando...';
   statusEl.style.color = 'var(--color-text-secondary)';
 
   try {
-    const count = await importCSV(file);
+    const count = await importCSV(file, contestName);
     showToast(`${count} obras importadas correctamente`);
     statusEl.textContent = `✅ ${count} obras importadas`;
     statusEl.style.color = 'var(--color-success)';
@@ -101,6 +109,7 @@ async function renderWorksList() {
                 <td><strong>${w.title}</strong></td>
                 <td>${w.author}</td>
                 <td>${categoryBadge(w.category)}</td>
+                <td>${w.contest || '—'}</td>
                 <td>${w.description || '—'}</td>
                 <td>
                   <button class="btn btn-sm btn-danger btn-delete-work" data-id="${w.id}" data-title="${w.title}">

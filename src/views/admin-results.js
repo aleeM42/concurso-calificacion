@@ -1,8 +1,8 @@
 // View JS: Admin — Resultados
 
 import { requireAuth } from '../auth-guard.js';
-import { renderNavbar, categoryBadge } from './shared.js';
-import { calculateResults } from '../controllers/admin.controller.js';
+import { renderNavbar, categoryBadge, showToast, showConfirmModal } from './shared.js';
+import { calculateResults, finalizeContest } from '../controllers/admin.controller.js';
 
 let allResults = [];
 let currentFilter = 'all';
@@ -26,6 +26,49 @@ async function init() {
 
     currentFilter = btn.dataset.category;
     renderResults();
+  });
+
+  // Finalizar Concurso
+  document.getElementById('btnFinalizeContest').addEventListener('click', () => {
+    if (allResults.length === 0) {
+      showToast('No hay obras procesadas para finalizar', 'error');
+      return;
+    }
+
+    const defaultName = allResults[0].contest || 'Concurso Actual';
+    
+    // Prompt no bloquea UI, pero usamos native API por simplicidad
+    const contestName = prompt('Ingresa el nombre del concurso para archivar los resultados:', defaultName);
+    
+    if (!contestName) return;
+
+    showConfirmModal(
+      'Finalizar Concurso',
+      `¿Confirmas finalizar "<strong>${contestName}</strong>"?<br><br>Se guardará el Top 5 en el historial y se <strong>borrarán irreversiblemente</strong> todas las obras y puntuaciones actuales.`,
+      async () => {
+        try {
+          // Deshabilitar botón durante proceso
+          const btn = document.getElementById('btnFinalizeContest');
+          btn.disabled = true;
+          btn.textContent = 'Procesando...';
+
+          await finalizeContest(contestName);
+          showToast(`Concurso "${contestName}" finalizado y archivado exitosamente.`);
+          
+          // Recargar TODO
+          allResults = [];
+          renderResults();
+          btn.disabled = false;
+          btn.textContent = 'Finalizar Concurso';
+
+        } catch (error) {
+          showToast(`Error al finalizar concurso: ${error.message}`, 'error');
+          const btn = document.getElementById('btnFinalizeContest');
+          btn.disabled = false;
+          btn.textContent = 'Finalizar Concurso';
+        }
+      }
+    );
   });
 }
 
