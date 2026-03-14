@@ -14,6 +14,7 @@ export default defineConfig({
                 adminResults: resolve(__dirname, 'admin-results.html'),
                 judgeScoring: resolve(__dirname, 'judge-scoring.html'),
                 judgeMyScores: resolve(__dirname, 'judge-my-scores.html'),
+                adminContests: resolve(__dirname, 'admin-contests.html'),
             },
         },
     },
