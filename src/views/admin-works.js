@@ -21,6 +21,7 @@ document.getElementById('addWorkForm').addEventListener('submit', async (e) => {
 
   try {
     await addWork({
+      participantNumber: document.getElementById('workParticipantNumber').value.trim().toUpperCase(),
       title: document.getElementById('workTitle').value.trim(),
       author: document.getElementById('workAuthor').value.trim(),
       category: document.getElementById('workCategory').value,
@@ -97,7 +98,8 @@ document.getElementById('csvFile').addEventListener('change', async (e) => {
             throw new Error(`Fila ${i + 1}: El identificador "${idPart}" no comienza con I (Infantil), J (Juvenil) o A (Adulto).`);
         }
 
-        dataWorks.push({ title, author, category, description });
+        // Guardar el número de participante para el ordenamiento natural
+        dataWorks.push({ title, author, category, description, participantNumber: idPart });
       }
 
       statusEl.textContent = 'Guardando en la base de datos...';
@@ -148,7 +150,7 @@ async function renderWorksList() {
         <table>
           <thead>
             <tr>
-              <th>#</th>
+              <th>N° Part.</th>
               <th>Título</th>
               <th>Autor</th>
               <th>Categoría</th>
@@ -160,7 +162,7 @@ async function renderWorksList() {
           <tbody>
             ${works.map((w, i) => `
               <tr>
-                <td>${i + 1}</td>
+                <td><code>${w.participantNumber || (i + 1)}</code></td>
                 <td><strong>${w.title}</strong></td>
                 <td>${w.author}</td>
                 <td>${categoryBadge(w.category)}</td>

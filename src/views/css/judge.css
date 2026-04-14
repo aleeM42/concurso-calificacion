@@ -17,6 +17,7 @@
 .scoring-progress .progress-text {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
+    white-space: nowrap;
 }
 
 .scoring-progress .progress-bar {
@@ -40,14 +41,81 @@
     gap: var(--space-md);
 }
 
+/* ── Tarjeta base ──────────────────────────────────────────────────────────── */
 .scoring-card {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-md);
     padding: var(--space-lg);
     box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition-fast);
 }
 
+/* Tarjeta en borrador: borde izquierdo amarillo */
+.scoring-card--draft {
+    border-left: 4px solid var(--color-accent-yellow);
+    background: linear-gradient(135deg, #fffdf5 0%, #ffffff 100%);
+}
+
+/* Tarjeta enviada: borde izquierdo verde + tono apagado */
+.scoring-card--submitted {
+    border-left: 4px solid var(--color-success);
+    background: linear-gradient(135deg, #f4fcf7 0%, #ffffff 100%);
+    opacity: 0.88;
+}
+
+/* ── Encabezado de tarjeta ─────────────────────────────────────────────────── */
+.work-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+.participant-number {
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: var(--color-primary);
+    background: rgba(27, 58, 92, 0.08);
+    border: 1px solid rgba(27, 58, 92, 0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+}
+
+/* ── Status badges ─────────────────────────────────────────────────────────── */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.status-badge--pending {
+    color: var(--color-text-muted);
+    background: var(--color-border-light);
+    border: 1px solid var(--color-border);
+}
+
+.status-badge--draft {
+    color: #7a5500;
+    background: var(--color-accent-yellow-light);
+    border: 1px solid rgba(212, 160, 32, 0.35);
+}
+
+.status-badge--submitted {
+    color: #1a6e3c;
+    background: var(--color-success-light);
+    border: 1px solid rgba(39, 174, 96, 0.3);
+}
+
+/* ── Información de obra ───────────────────────────────────────────────────── */
 .scoring-card .work-info {
     margin-bottom: var(--space-md);
 }
@@ -70,7 +138,7 @@
     margin-top: var(--space-sm);
 }
 
-/* --- Score Input --- */
+/* ── Score Input ───────────────────────────────────────────────────────────── */
 .score-input-group {
     display: flex;
     align-items: center;
@@ -107,7 +175,7 @@
     color: var(--color-text-muted);
 }
 
-/* --- Comment input en scoring --- */
+/* ── Comment textarea ──────────────────────────────────────────────────────── */
 .scoring-card textarea {
     width: 100%;
     padding: 10px 14px;
@@ -128,7 +196,137 @@
     border-color: var(--color-primary);
 }
 
-/* --- My Scores list --- */
+/* ── Botones de acción por tarjeta ─────────────────────────────────────────── */
+.scoring-actions {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.scoring-actions .btn {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    justify-content: center;
+}
+
+/* ── Puntaje de solo lectura (estado enviado) ──────────────────────────────── */
+.score-readonly {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-success-light);
+    border-radius: var(--radius-sm);
+    flex-wrap: wrap;
+}
+
+.score-readonly-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.score-readonly-value {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-success);
+    min-width: 36px;
+    text-align: center;
+}
+
+.score-readonly-comment {
+    width: 100%;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin-top: var(--space-xs);
+}
+
+/* ── Botón Veredicto Final (global) ────────────────────────────────────────── */
+.verdict-wrapper {
+    margin-bottom: var(--space-md);
+}
+
+.verdict-action,
+.verdict-complete {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    flex-wrap: wrap;
+}
+
+.verdict-action {
+    background: linear-gradient(135deg, #f8f4ff 0%, #f0f5ff 100%);
+    border: 1px solid rgba(27, 58, 92, 0.15);
+    justify-content: space-between;
+}
+
+.verdict-complete {
+    background: linear-gradient(135deg, #f4fcf7 0%, #eefff5 100%);
+    border: 1px solid rgba(39, 174, 96, 0.3);
+}
+
+.verdict-hint {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    flex: 1;
+}
+
+.verdict-hint.ready {
+    color: #1a6e3c;
+    font-weight: 500;
+}
+
+.verdict-complete strong {
+    color: var(--color-success);
+}
+
+.verdict-complete p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+}
+
+.verdict-check {
+    font-size: 1.5rem;
+}
+
+/* ── Botón Veredicto (estilo premium) ──────────────────────────────────────── */
+.btn-verdict {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 8px rgba(27, 58, 92, 0.3);
+}
+
+.btn-verdict:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(27, 58, 92, 0.4);
+}
+
+.btn-verdict:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-verdict:disabled,
+.btn-verdict.btn-disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ── My Scores list ────────────────────────────────────────────────────────── */
 .my-scores-list {
     display: flex;
     flex-direction: column;
@@ -143,6 +341,7 @@
     background: var(--color-bg-card);
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-md);
+    gap: var(--space-sm);
 }
 
 .my-score-item .score-work-info {
@@ -167,7 +366,7 @@
     text-align: center;
 }
 
-/* --- Complete state --- */
+/* ── Complete state ────────────────────────────────────────────────────────── */
 .completed-state {
     text-align: center;
     padding: var(--space-2xl);
@@ -186,4 +385,45 @@
 .completed-state p {
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
+}
+
+/* ── Empty & Error states ──────────────────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-md);
+}
+
+.empty-state .empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-sm);
+}
+
+.empty-state p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .scoring-actions {
+        flex-direction: column;
+    }
+
+    .verdict-action,
+    .verdict-complete {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .btn-verdict {
+        width: 100%;
+        text-align: center;
+    }
+
+    .score-readonly {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

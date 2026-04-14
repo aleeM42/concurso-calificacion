@@ -77,6 +77,7 @@ export async function importWorksBatch(dataWorks, contestName) {
             category: category,
             description: item.description || '',
             contest: contestName,
+            participantNumber: item.participantNumber || '',
         });
     });
 

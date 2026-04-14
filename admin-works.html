@@ -30,6 +30,12 @@
                     <form id="addWorkForm">
                         <div class="add-form">
                             <div class="form-group">
+                                <label for="workParticipantNumber">N° Participante</label>
+                                <input type="text" id="workParticipantNumber" class="form-control"
+                                    placeholder="Ej: I-01, J-05, A-10" style="text-transform: uppercase;"
+                                    pattern="[A-Za-z]-\d+" title="Formato: LETRA-NÚMERO (ej: I-01)">
+                            </div>
+                            <div class="form-group">
                                 <label for="workTitle">Título</label>
                                 <input type="text" id="workTitle" class="form-control" placeholder="Nombre de la obra"
                                     required>
