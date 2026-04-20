@@ -128,8 +128,8 @@ function renderResults() {
                       <td>
                         <span class="rank-badge ${rankClass}">${rank}</span>
                       </td>
-                      <td><strong>${r.title}</strong></td>
-                      <td>${r.author}</td>
+                      <td><strong>${r.author}</strong></td>
+                      <td>${r.title}</td>
                       <td><span class="total-score">${r.totalScore}</span></td>
                       <td>
                         <div class="score-detail">
