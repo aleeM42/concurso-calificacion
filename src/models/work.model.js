@@ -39,7 +39,7 @@ export async function getWorkById(workId) {
 /**
  * Crear una obra individual.
  */
-export async function createWork({ title, author, category, description, contest, participantNumber }) {
+export async function createWork({ title, author, category, description, contest, participantNumber, location }) {
     const docRef = await addDoc(worksCol, {
         title,
         author,
@@ -47,6 +47,7 @@ export async function createWork({ title, author, category, description, contest
         description: description || '',
         contest: contest || '',
         participantNumber: participantNumber || '',
+        location: location || '',
         createdAt: serverTimestamp(),
     });
     return docRef.id;
@@ -69,6 +70,7 @@ export async function createWorksBatch(worksArray) {
             description: work.description || '',
             contest: work.contest || '',
             participantNumber: work.participantNumber || '',
+            location: work.location || '',
             createdAt: now,
         });
     }

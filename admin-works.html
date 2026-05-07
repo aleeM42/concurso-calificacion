@@ -59,6 +59,11 @@
                                 <input type="text" id="workContest" class="form-control" placeholder="Nombre del concurso" required>
                             </div>
                             <div class="form-group">
+                                <label for="workLocation">Locación (opcional)</label>
+                                <input type="text" id="workLocation" class="form-control"
+                                    placeholder="Ciudad, municipio o estado">
+                            </div>
+                            <div class="form-group">
                                 <label for="workDescription">Descripción (opcional)</label>
                                 <input type="text" id="workDescription" class="form-control"
                                     placeholder="Breve descripción">
@@ -79,8 +84,9 @@
                     </div>
                     <p
                         style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--space-md);">
-                        Formato: <strong>#, título, autor, descripción</strong> (una obra por fila).
+                        Formato: <strong>#, título, autor, descripción, locación</strong> (una obra por fila).<br>
                         El símbolo "#" define la categoría usando la primera letra (I=Infantil, J=Juvenil, A=Adulto).
+                        La columna de <em>locación</em> (5ª columna) es opcional.
                     </p>
                     <div class="form-group" style="margin-bottom: var(--space-md);">
                         <label for="csvContest">Nombre del Concurso</label>

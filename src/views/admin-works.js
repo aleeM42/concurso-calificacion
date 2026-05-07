@@ -27,6 +27,7 @@ document.getElementById('addWorkForm').addEventListener('submit', async (e) => {
       category: document.getElementById('workCategory').value,
       description: document.getElementById('workDescription').value.trim(),
       contest: document.getElementById('workContest').value.trim(),
+      location: document.getElementById('workLocation').value.trim(),
     });
 
     showToast('Obra agregada correctamente');
@@ -87,6 +88,7 @@ document.getElementById('csvFile').addEventListener('change', async (e) => {
         const title = String(row[1]).trim();
         const author = String(row[2]).trim();
         const description = row.length > 3 ? String(row[3]).trim() : '';
+        const location = row.length > 4 ? String(row[4]).trim() : '';
 
         // La primera letra define la categoría
         let category = '';
@@ -99,7 +101,7 @@ document.getElementById('csvFile').addEventListener('change', async (e) => {
         }
 
         // Guardar el número de participante para el ordenamiento natural
-        dataWorks.push({ title, author, category, description, participantNumber: idPart });
+        dataWorks.push({ title, author, category, description, participantNumber: idPart, location });
       }
 
       statusEl.textContent = 'Guardando en la base de datos...';
@@ -153,6 +155,7 @@ async function renderWorksList() {
               <th>N° Part.</th>
               <th>Título</th>
               <th>Autor</th>
+              <th>Locación</th>
               <th>Categoría</th>
               <th>Concurso</th>
               <th>Descripción</th>
@@ -165,6 +168,7 @@ async function renderWorksList() {
                 <td><code>${w.participantNumber || (i + 1)}</code></td>
                 <td><strong>${w.title}</strong></td>
                 <td>${w.author}</td>
+                <td>${w.location || '—'}</td>
                 <td>${categoryBadge(w.category)}</td>
                 <td>${w.contest || '—'}</td>
                 <td>${w.description || '—'}</td>

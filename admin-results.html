@@ -20,17 +20,20 @@
                 <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-md);">
                     <div>
                         <h1>Resultados del Concurso</h1>
-                        <p>Ranking general con sumatoria de puntajes — Top 5 ganadores destacados</p>
+                        <p>Ranking general con sumatoria de puntajes — Top 10 ganadores por categoría</p>
                     </div>
                     <button class="btn btn-primary" id="btnFinalizeContest">Finalizar Concurso</button>
                 </div>
 
-                <!-- Filtro por categoría -->
-                <div class="results-filter" id="categoryFilter">
-                    <button class="btn btn-secondary btn-sm active" data-category="all">Todas</button>
-                    <button class="btn btn-secondary btn-sm" data-category="infantil">Infantil</button>
-                    <button class="btn btn-secondary btn-sm" data-category="juvenil">Juvenil</button>
-                    <button class="btn btn-secondary btn-sm" data-category="adulto">Adulto</button>
+                <!-- Filtro por categoría: select + botón -->
+                <div class="results-filter" id="categoryFilter" style="display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; margin-bottom: var(--space-md);">
+                    <label for="categorySelect" style="font-weight: 600; white-space: nowrap;">Filtrar por categoría:</label>
+                    <select id="categorySelect" class="form-control" style="max-width: 220px;">
+                        <option value="all">Todas las categorías</option>
+                        <option value="infantil">Infantil</option>
+                        <option value="juvenil">Juvenil</option>
+                        <option value="adulto">Adulto</option>
+                    </select>
                 </div>
 
                 <!-- Tabla de resultados -->

@@ -78,6 +78,7 @@ export async function importWorksBatch(dataWorks, contestName) {
             description: item.description || '',
             contest: contestName,
             participantNumber: item.participantNumber || '',
+            location: item.location || '',
         });
     });
 
@@ -176,6 +177,8 @@ export async function calculateResults() {
             workId: work.id,
             title: work.title,
             author: work.author,
+            participantNumber: work.participantNumber || '',
+            location: work.location || '',
             category: work.category,
             contest: work.contest,
             totalScore,
