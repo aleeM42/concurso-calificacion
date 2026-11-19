@@ -1,7 +1,7 @@
 // View JS: Admin — Gestión de Obras
 
 import { requireAuth } from '../auth-guard.js';
-import { renderNavbar, showToast, categoryBadge, showConfirmModal } from './shared.js';
+import { renderNavbar, showToast, categoryBadge, showConfirmModal, SHOW_LOCATION } from './shared.js';
 import { loadWorks, addWork, importWorksBatch, removeWork } from '../controllers/admin.controller.js';
 
 let currentUser;
@@ -10,6 +10,12 @@ async function init() {
   currentUser = await requireAuth('admin');
   renderNavbar('admin', currentUser.name, 'works');
   await renderWorksList();
+}
+
+// Hallazgo 5: el campo de ubicación queda oculto en el HTML; solo se muestra si SHOW_LOCATION está activo
+if (SHOW_LOCATION) {
+  const locationGroup = document.getElementById('workLocationGroup');
+  if (locationGroup) locationGroup.hidden = false;
 }
 
 // --- Agregar obra individual ---
@@ -155,7 +161,7 @@ async function renderWorksList() {
               <th>N° Part.</th>
               <th>Título</th>
               <th>Autor</th>
-              <th>Locación</th>
+              ${SHOW_LOCATION ? '<th>Locación</th>' : ''}
               <th>Categoría</th>
               <th>Concurso</th>
               <th>Descripción</th>
@@ -168,7 +174,7 @@ async function renderWorksList() {
                 <td><code>${w.participantNumber || (i + 1)}</code></td>
                 <td><strong>${w.title}</strong></td>
                 <td>${w.author}</td>
-                <td>${w.location || '—'}</td>
+                ${SHOW_LOCATION ? `<td>${w.location || '—'}</td>` : ''}
                 <td>${categoryBadge(w.category)}</td>
                 <td>${w.contest || '—'}</td>
                 <td>${w.description || '—'}</td>

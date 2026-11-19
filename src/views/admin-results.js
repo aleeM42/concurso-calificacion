@@ -1,7 +1,7 @@
 // View JS: Admin — Resultados
 
 import { requireAuth } from '../auth-guard.js';
-import { renderNavbar, categoryBadge, showToast, showConfirmModal } from './shared.js';
+import { renderNavbar, categoryBadge, showToast, showConfirmModal, SHOW_LOCATION } from './shared.js';
 import { calculateResults, finalizeContest } from '../controllers/admin.controller.js';
 
 let allResults = [];
@@ -105,7 +105,7 @@ function renderResults() {
                 <th>Pos.</th>
                 <th>Participante</th>
                 <th>Autor</th>
-                <th>Locación</th>
+                ${SHOW_LOCATION ? '<th>Locación</th>' : ''}
                 <th>Puntaje Total</th>
                 <th>Detalle por Juez</th>
               </tr>
@@ -126,7 +126,7 @@ function renderResults() {
                     </td>
                     <td><strong>${participantLabel}</strong></td>
                     <td>${r.author || '—'}</td>
-                    <td>${r.location || '—'}</td>
+                    ${SHOW_LOCATION ? `<td>${r.location || '—'}</td>` : ''}
                     <td><span class="total-score">${r.totalScore}</span></td>
                     <td>
                       <div class="score-detail">
