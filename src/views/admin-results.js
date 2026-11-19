@@ -37,7 +37,7 @@ async function init() {
 
     showConfirmModal(
       'Finalizar Concurso',
-      `¿Confirmas finalizar "<strong>${contestName}</strong>"?<br><br>Se guardará el Top 10 en el historial y se <strong>borrarán irreversiblemente</strong> todas las obras y puntuaciones actuales.`,
+      `¿Confirmas finalizar "<strong>${contestName}</strong>"?<br><br>Se guardará el Top 5 en el historial y se <strong>borrarán irreversiblemente</strong> todas las obras y puntuaciones actuales.`,
       async () => {
         try {
           const btn = document.getElementById('btnFinalizeContest');
@@ -83,7 +83,7 @@ function renderResults() {
 
   catsToRender.forEach(cat => {
     const catResults = allResults.filter(r => r.category === cat);
-    const top10 = catResults.slice(0, 10); // ← Top 10
+    const top10 = catResults.slice(0, 5); // ← Top 5 (igual que lo que se guarda en el historial)
 
     if (top10.length === 0) {
       html += `
@@ -97,7 +97,7 @@ function renderResults() {
 
     html += `
       <div class="category-section" style="margin-bottom: 2rem;">
-        <h3 class="category-title" style="text-transform: capitalize; margin-top: 1rem; margin-bottom: 1rem; color: var(--primary-color);">🏆 Top 10 — Categoría: ${cat}</h3>
+        <h3 class="category-title" style="text-transform: capitalize; margin-top: 1rem; margin-bottom: 1rem; color: var(--primary-color);">🏆 Top 5 — Categoría: ${cat}</h3>
         <div class="table-wrapper">
           <table>
             <thead>
