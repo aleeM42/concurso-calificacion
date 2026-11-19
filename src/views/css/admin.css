@@ -148,6 +148,9 @@
 .btn-reveal-code[aria-pressed="true"] {
     background: var(--color-primary);
     border-color: var(--color-primary);
+    /* emoji can't take `color`: draw it as a white silhouette on the navy background */
+    color: transparent;
+    text-shadow: 0 0 0 #fff;
 }
 
 /* --- Hallazgos 4 y 7: tabla de resultados con filas desplegables --- */
