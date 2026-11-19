@@ -57,6 +57,8 @@ async function renderJudgesList() {
 
   try {
     const judges = await loadJudges();
+    // Hallazgo 2: ordenar alfabéticamente por nombre (reglas del español: acentos, ñ)
+    judges.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'es', { sensitivity: 'base' }));
 
     if (judges.length === 0) {
       container.innerHTML = `
