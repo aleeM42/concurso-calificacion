@@ -149,3 +149,179 @@
     background: var(--color-primary);
     border-color: var(--color-primary);
 }
+
+/* --- Hallazgos 4 y 7: tabla de resultados con filas desplegables --- */
+.results-table-wrapper {
+    container-type: inline-size;
+}
+
+.results-table {
+    min-width: 640px;
+}
+
+.results-table thead th + th {
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.results-table td {
+    vertical-align: middle;
+}
+
+.results-table .rt-num {
+    text-align: center;
+    width: 56px;
+}
+
+.results-table .rt-avg {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.results-table .rt-chev {
+    width: 44px;
+    text-align: center;
+}
+
+.result-row {
+    cursor: pointer;
+    background: var(--color-bg-card);
+    transition: background 0.15s, box-shadow 0.15s;
+}
+
+.result-row td + td {
+    border-left: 1px solid var(--color-border-light);
+}
+
+.results-table tbody .result-row:hover {
+    background: #EEF2F7;
+    box-shadow: inset 4px 0 0 var(--color-primary-light);
+}
+
+.result-row:focus-visible {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: -3px;
+}
+
+.results-table tbody .result-row.is-open {
+    background: #E8EEF5;
+    box-shadow: inset 4px 0 0 var(--color-primary);
+}
+
+.results-table tbody .result-row.is-open td {
+    border-bottom-color: transparent;
+}
+
+.results-table tbody tr.result-detail-row:hover {
+    background: none;
+}
+
+.rt-code {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.rt-name {
+    font-weight: 600;
+}
+
+.rt-avg-value {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+.rt-avg-max {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+.rt-avg small {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+.rt-chev-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    color: var(--color-text-muted);
+    transition: transform 0.2s;
+}
+
+.result-row.is-open .rt-chev-icon {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+}
+
+.result-detail-row td {
+    padding: 0;
+    background: var(--color-bg);
+    box-shadow: inset 4px 0 0 var(--color-primary);
+}
+
+.result-detail {
+    position: sticky;
+    left: 0;
+    width: 100cqw;
+    display: grid;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-md) var(--space-md) var(--space-lg);
+}
+
+.judge-detail {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: var(--space-md);
+    row-gap: 2px;
+    align-items: center;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+}
+
+.judge-detail-name {
+    grid-column: 1;
+    grid-row: 1;
+    font-weight: 600;
+}
+
+.judge-detail-comment {
+    grid-column: 1;
+    grid-row: 2;
+    color: var(--color-text-secondary);
+}
+
+.judge-detail-comment.is-empty {
+    font-style: italic;
+    color: var(--color-text-muted);
+}
+
+.judge-detail-score {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.6rem;
+    height: 2rem;
+    padding: 0 0.55rem;
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: white;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.result-detail-foot {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-align: right;
+}
