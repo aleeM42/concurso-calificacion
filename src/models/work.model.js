@@ -47,7 +47,8 @@ export async function createWork({ title, author, category, description, contest
         description: description || '',
         contest: contest || '',
         participantNumber: participantNumber || '',
-        location: location || '',
+        // Hallazgo 5: ubicación desactivada (ver SHOW_LOCATION en src/views/shared.js). Descomentar para volver a guardarla.
+        // location: location || '',
         createdAt: serverTimestamp(),
     });
     return docRef.id;
@@ -70,7 +71,8 @@ export async function createWorksBatch(worksArray) {
             description: work.description || '',
             contest: work.contest || '',
             participantNumber: work.participantNumber || '',
-            location: work.location || '',
+            // Hallazgo 5: ubicación desactivada (ver SHOW_LOCATION en src/views/shared.js). Descomentar para volver a guardarla.
+            // location: work.location || '',
             createdAt: now,
         });
     }

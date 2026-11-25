@@ -4,6 +4,7 @@
 import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
+import { renderNavbar } from './views/shared.js';
 
 /**
  * Verifica que el usuario tenga sesión activa y el rol requerido.
@@ -13,6 +14,10 @@ import { doc, getDoc } from 'firebase/firestore';
  * @returns {Promise<{uid: string, email: string, name: string, role: string}>}
  */
 export function requireAuth(requiredRole) {
+    // Hallazgo 1: dibujar la barra de navegación de inmediato (sin nombre de usuario).
+    // La llamada a renderNavbar de cada página la vuelve a dibujar con el nombre al terminar la verificación.
+    renderNavbar(requiredRole, '', null);
+
     return new Promise((resolve, reject) => {
         onAuthStateChanged(auth, async (user) => {
             if (!user) {

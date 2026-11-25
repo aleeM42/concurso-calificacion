@@ -41,15 +41,17 @@ Para que un concurso pueda ser evaluado, es obligatorio registrar sus obras. Tod
    - Haga clic o arrastre su documento en el área marcada.
 
    **⚠️ FORMATO PERMITIDO PARA EL ARCHIVO EXCEL/CSV:**
-   Debe asegurar que las columnas en su Excel sigan estrictamente el siguiente orden (una obra por cada fila):
+   La **fila 1** debe tener los encabezados `#`, `Participante`, `Nombre Obra` y, si la usa, `Descripción`. Las columnas deben seguir estrictamente el siguiente orden (una obra por cada fila):
    * **Columna A (Número / `#`):** Debe incluir el número de participante y la primera letra indicará la Categoría de la obra.
      - Letra **I** para Infantil (Ejemplo: `I-001`, `I102`)
      - Letra **J** para Juvenil (Ejemplo: `J-015`, `J55`)
      - Letra **A** para Adulto (Ejemplo: `A-123`, `A02`)
      *(El sistema detecta automáticamente la categoría leyendo esa primera letra).*
-   * **Columna B (Título):** Nombre de la obra.
-   * **Columna C (Autor):** Nombre del artista o participante.
+   * **Columna B (Participante):** Nombre del artista o participante (autor).
+   * **Columna C (Nombre Obra):** Título de la obra.
    * **Columna D (Descripción - opcional):** Texto descriptivo breve.
+
+   Al cargar el archivo, el sistema revisa los encabezados y marca cada columna en **verde** (correcta), **amarillo** (error de escritura menor, se acepta) o **rojo** (no coincide). Luego muestra una **vista previa**: las obras **no se guardan** hasta pulsar **Confirmar importación**. Si un encabezado está en rojo pero usted sabe que los datos están bien, puede usar **Ignorar advertencias y continuar** (las columnas se leen por posición).
 
 
 ## 4. Resultados y Finalización del Concurso

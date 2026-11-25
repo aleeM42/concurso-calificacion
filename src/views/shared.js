@@ -3,6 +3,12 @@
 import { logout } from '../controllers/auth.controller.js';
 
 /**
+ * Hallazgo 5: la ubicación (location) está desactivada porque los datos que se reciben no la incluyen.
+ * Para volver a activarla: poner en true y descomentar las líneas de "location" en src/models/work.model.js.
+ */
+export const SHOW_LOCATION = false;
+
+/**
  * Mostrar notificación toast.
  */
 export function showToast(message, type = 'success') {
