@@ -57,6 +57,8 @@ async function renderJudgesList() {
 
   try {
     const judges = await loadJudges();
+    // Hallazgo 2: ordenar alfabéticamente por nombre (reglas del español: acentos, ñ)
+    judges.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'es', { sensitivity: 'base' }));
 
     if (judges.length === 0) {
       container.innerHTML = `
@@ -86,7 +88,12 @@ async function renderJudgesList() {
                 <td>${i + 1}</td>
                 <td><strong>${j.name}</strong></td>
                 <td><code style="background: var(--color-bg); padding: 2px 6px; border-radius: 4px;">${j.idAcceso || 'No especificado'}</code></td>
-                <td><code style="background: var(--color-bg); padding: 2px 6px; border-radius: 4px;">${j.accessCode || 'N/A'}</code></td>
+                <td>
+                  <span class="access-code">
+                    <code class="access-code-value" data-code="${j.accessCode || 'N/A'}" style="background: var(--color-bg); padding: 2px 6px; border-radius: 4px;">••••••</code>
+                    <button type="button" class="btn-reveal-code" aria-label="Mostrar código" title="Mostrar código" aria-pressed="false"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                  </span>
+                </td>
                 <td>
                   <button class="btn btn-sm btn-secondary btn-edit-judge" data-id="${j.id}" data-name="${j.name}">
                     Modificar
@@ -101,6 +108,18 @@ async function renderJudgesList() {
         </table>
       </div>
     `;
+
+    // Hallazgo 3: códigos ocultos por defecto; el botón 👁 los muestra u oculta
+    document.querySelectorAll('.btn-reveal-code').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const codeEl = btn.parentElement.querySelector('.access-code-value');
+        const show = btn.getAttribute('aria-pressed') !== 'true';
+        codeEl.textContent = show ? codeEl.dataset.code : '••••••';
+        btn.setAttribute('aria-pressed', String(show));
+        btn.setAttribute('aria-label', show ? 'Ocultar código' : 'Mostrar código');
+        btn.title = show ? 'Ocultar código' : 'Mostrar código';
+      });
+    });
 
     // Bind delete buttons
     document.querySelectorAll('.btn-delete-judge').forEach(btn => {
